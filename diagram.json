@@ -1,0 +1,114 @@
+{
+  "version": 1,
+  "author": "Guardian Health Monitor",
+  "editor": "wokwi",
+  "parts": [
+    { "type": "board-esp32-devkit-c-v4", "id": "esp", "top": 0, "left": 100, "attrs": {} },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot_hrv",
+      "top": -135.7,
+      "left": -192.2,
+      "attrs": { "label": "Heart Rate" }
+    },
+    {
+      "type": "wokwi-potentiometer",
+      "id": "pot_gsr",
+      "top": -135.7,
+      "left": -86.6,
+      "attrs": { "label": "GSR/Sweat" }
+    },
+    { "type": "board-ds18b20", "id": "temp_sensor", "top": -125.93, "left": 52.08, "attrs": {} },
+    { "type": "wokwi-mpu6050", "id": "accel", "top": 186.22, "left": -160.88, "attrs": {} },
+    {
+      "type": "wokwi-photoresistor-sensor",
+      "id": "ldr",
+      "top": 291.2,
+      "left": -200.8,
+      "attrs": {}
+    },
+    {
+      "type": "wokwi-lcd1602",
+      "id": "lcd",
+      "top": 188.8,
+      "left": 284,
+      "attrs": { "pins": "i2c" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_red_alert",
+      "top": -109.2,
+      "left": 291.8,
+      "attrs": { "color": "red" }
+    },
+    {
+      "type": "wokwi-led",
+      "id": "led_white_light",
+      "top": -109.2,
+      "left": 378.2,
+      "attrs": { "color": "white" }
+    },
+    { "type": "wokwi-buzzer", "id": "buzzer", "top": -36, "left": 501, "attrs": {} },
+    { "type": "wokwi-servo", "id": "servo_fan", "top": 65.2, "left": 566.4, "attrs": {} },
+    {
+      "type": "wokwi-pushbutton",
+      "id": "btn",
+      "top": 275,
+      "left": 115.2,
+      "attrs": { "color": "green" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r1",
+      "top": -53.65,
+      "left": 278.4,
+      "attrs": { "value": "220" }
+    },
+    {
+      "type": "wokwi-resistor",
+      "id": "r2",
+      "top": -53.65,
+      "left": 374.4,
+      "attrs": { "value": "220" }
+    }
+  ],
+  "connections": [
+    [ "esp:TX", "$serialMonitor:RX", "", [] ],
+    [ "esp:RX", "$serialMonitor:TX", "", [] ],
+    [ "pot_hrv:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "pot_hrv:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "pot_hrv:SIG", "esp:34", "green", [ "v0" ] ],
+    [ "pot_gsr:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "pot_gsr:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "pot_gsr:SIG", "esp:35", "green", [ "v0" ] ],
+    [ "temp_sensor:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "temp_sensor:DQ", "esp:32", "green", [ "v0" ] ],
+    [ "temp_sensor:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "accel:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "accel:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "accel:SDA", "esp:21", "green", [ "v0" ] ],
+    [ "accel:SCL", "esp:22", "green", [ "v0" ] ],
+    [ "ldr:VCC", "esp:3V3", "red", [ "v0" ] ],
+    [ "ldr:GND", "esp:GND.1", "black", [ "v0" ] ],
+    [ "ldr:AO", "esp:33", "green", [ "v0" ] ],
+    [ "lcd:VCC", "esp:5V", "red", [ "h0" ] ],
+    [ "lcd:GND", "esp:GND.2", "black", [ "h0" ] ],
+    [ "lcd:SDA", "esp:21", "green", [ "h0" ] ],
+    [ "lcd:SCL", "esp:22", "green", [ "h0" ] ],
+    [ "led_red_alert:A", "r1:1", "green", [ "v0" ] ],
+    [ "r1:2", "esp:12", "green", [ "v0" ] ],
+    [ "led_red_alert:C", "esp:GND.2", "black", [ "v0" ] ],
+    [ "led_white_light:A", "r2:1", "green", [ "v0" ] ],
+    [ "r2:2", "esp:27", "green", [ "v0" ] ],
+    [ "led_white_light:C", "esp:GND.2", "black", [ "v0" ] ],
+    [ "buzzer:1", "esp:25", "green", [ "v0" ] ],
+    [ "buzzer:2", "esp:GND.2", "black", [ "v0" ] ],
+    [ "servo_fan:GND", "esp:GND.2", "black", [ "h0" ] ],
+    [ "servo_fan:V+", "esp:5V", "red", [ "h0" ] ],
+    [ "servo_fan:SIG", "esp:26", "yellow", [ "h0" ] ],
+    [ "btn:1.l", "esp:4", "green", [ "h0" ] ],
+    [ "btn:2.l", "esp:GND.2", "black", [ "h0" ] ],
+    [ "servo_fan:PWM", "esp:26", "green", [ "h0" ] ]
+  ],
+  "dependencies": {}
+}
